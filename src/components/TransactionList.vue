@@ -41,6 +41,7 @@ const deleteTransaction = (id) => {
         <label for="Expense">Expense</label>
       </div>
     </section>
+    
     <table class="table table-bordered border-primary">
       <thead>
         <tr>

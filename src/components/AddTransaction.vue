@@ -5,6 +5,7 @@ const title = ref('');
 const amount = ref(0);
 const type = ref('income');
 const amountError = ref('');
+const lastId = ref(0);
 
 const emit = defineEmits(['add-transaction']);
 
@@ -14,8 +15,10 @@ const FormSubmit = () => {
     return;
   }
 
+  lastId.value++;
+
   const newTransaction = {
-    id: Date.now(),
+    id: lastId.value, 
     title: title.value,
     amount: parseFloat(amount.value),
     type: type.value,
@@ -28,12 +31,11 @@ const FormSubmit = () => {
   type.value = 'income';
   amountError.value = '';
 };
-
 </script>
 
 <template>
   <div>
-    <form @submit.prevent="FormSubmit" class=" d-flex ">
+    <form @submit.prevent="FormSubmit" class="d-flex">
       <div class="col-3 p-1">
         <input type="text" class="form-control" id="title" placeholder="Title" v-model="title" required />
       </div>
@@ -42,14 +44,14 @@ const FormSubmit = () => {
         <small v-if="amountError" class="text-danger">{{ amountError }}</small>
       </div>
       <div class="col-3 p-1">
-        <select class="form-select" aria-placeholder="Type" id="type" v-model="type" required>
+        <select class="form-select" id="type" v-model="type" required>
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
       </div>
-       <div class="col-3 p-1">
+      <div class="col-3 p-1">
         <button type="submit" class="btn btn-primary w-100">Add</button>
-       </div>
+      </div>
     </form>
   </div>
 </template>
